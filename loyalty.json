@@ -1,7 +1,10 @@
 {
     "02-07-2015": {
-        "focus": {
-        },
+        "focus": [
+            "Testers and developers collaborate on writing tests",
+            "All code is peer reviewed",
+            "All new code has automated tests"
+        ],
         "behaviours": {
             "Automated Testing": {
                 "A useful level of code coverage is maintained by the team": false,
