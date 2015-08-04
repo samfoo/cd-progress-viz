@@ -17,12 +17,19 @@
             position: fixed;
             top: 10px;
             right: 10px;
+            background-color: rgba(255, 255, 255, 0.75);
+            padding: 15px;
         }
 
         #legend .item {
             width: 10px;
             height: 10px;
             display: inline-block;
+            margin-right: 5px;
+        }
+
+        #legend h3 {
+            color: black;
         }
 
         .chart-container {
@@ -492,10 +499,12 @@
                     });
                 }
 
-                var palette = new Rickshaw.Color.Palette( { scheme: 'cool' } );
+                var palette = new Rickshaw.Color.Palette( { scheme: 'classic9' } );
                 var time = new Rickshaw.Fixtures.Time();
 
-                var progressChartFor = function(selector, d, categories) {
+                var progressChartFor = function(selector, d, categories, paletteOffset) {
+                    paletteOffset = paletteOffset || 0;
+
                     var g = new Rickshaw.Graph({
                         element: document.querySelector("#" + selector + "-overall"),
                         min: 0,
@@ -504,7 +513,7 @@
                         series: _.map(categories, function(c, i) {
                             return {
                                 name: c,
-                                color: palette.color(i),
+                                color: palette.color(i + paletteOffset),
                                 data: progressFor(c, d)
                             }
                         })
@@ -546,11 +555,7 @@
                     "Ceremonies",
                     "Process",
                     "Product Ownership"
-                ]);
-
-                _(4).times(function(i) {
-                    $(".p" + (i + 1)).css("background-color", palette.color(i));
-                });
+                ], 4);
 
                 var sum = function(a) {
                     return _.reduce(a, function(m, i) { return m + i; }, 0);
@@ -585,6 +590,25 @@
 
                 $("#loyalty-total").text("" + recentScore(loyalty) + " | " + recentScore(loyaltyAgile));
                 $("#disrupts-total").text(recentScore(disrupts));
+
+                var allCategories = _.keys(disrupts[_.keys(disrupts)[0]]["behaviours"]);
+                allCategories = allCategories.concat(_.keys(loyaltyAgile[_.keys(loyaltyAgile)[0]]["behaviours"]));
+                var item = d3.select("#legend")
+                            .selectAll("div")
+                            .data(allCategories)
+                            .enter()
+                            .append("div");
+                item
+                    .append("div")
+                    .attr("style", function(d, i) {
+                        return "background-color: " + palette.color(i);
+                    })
+                    .attr("class", function(d, i) {
+                        return "item p" + i;
+                    });
+
+                item.append("span")
+                    .text(function(d) { return d; });
 
                 var drawDelta = function(selector, team) {
                     d3.select(selector)
@@ -694,22 +718,7 @@
         </div>
 
         <div id="legend">
-            <div>
-                <div class="item p1"></div>
-                Automated Testing
-            </div>
-            <div>
-                <div class="item p2"></div>
-                Continuous Integration
-            </div>
-            <div>
-                <div class="item p3"></div>
-                Deployment
-            </div>
-            <div>
-                <div class="item p4"></div>
-                Practices
-            </div>
+            <h3>Legend</h3>
         </div>
     </body>
 </html>
