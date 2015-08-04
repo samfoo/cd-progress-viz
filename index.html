@@ -4,6 +4,10 @@
         <meta charset="utf-8">
         <style>
 
+        * {
+            box-sizing: border-box;
+        }
+
         body {
           font: 14px "Open Sans" sans-serif;
           color: #7f8c8d;
@@ -64,6 +68,10 @@
             padding: 10px;
         }
 
+        .total.x2 {
+            width: 200px;
+        }
+
         .delta {
             width: 100px;
             height: 100px;
@@ -73,6 +81,17 @@
             font-size: 32px;
             color: black;
             font-weight: bold;
+            float: left;
+        }
+
+        .deltas .delta {
+            float: none;
+            display: block;
+            height: 50px;
+            margin: 0 20px;
+        }
+
+        .deltas {
             float: left;
         }
 
@@ -127,15 +146,52 @@
             font-weight: 300;
         }
 
+        .side-by-side-charts .chart-container {
+            width: 50%;
+            float: left;
+            margin: 0;
+            padding: 20px;
+        }
+        .side-by-side-charts .cd-checklist-chart-y-axis {
+            position: absolute;
+            top: 0;
+            top: 20px;
+            left: -20px;
+            width: 40px;
+        }
+
+        .chart-container h3 {
+            text-align: center;
+            font-size: 32px;
+            font-weight: 300;
+        }
+
+        #loyalty-delta, #loyalty-agile-delta {
+            position: relative;
+        }
+
+        #loyalty-delta:after, #loyalty-agile-delta:after {
+            position: absolute;
+            content: 'technical';
+            left: 25px;
+            top: -5px;
+            font-size: 10px;
+        }
+
+        #loyalty-agile-delta:after {
+            left: 20px;
+            content: 'project mgt';
+        }
+
         </style>
 
-        <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
-        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/rickshaw/1.5.1/rickshaw.min.css" type="text/css">
-        <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
-        <script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/rickshaw/1.5.1/rickshaw.min.js"></script>
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rickshaw/1.5.1/rickshaw.min.css" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+        <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/rickshaw/1.5.1/rickshaw.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
         <script>
             $(document).ready(function () {
@@ -333,24 +389,96 @@
                     }
                 };
 
-                var progressSeries = function(o) {
-                    var dates = _.sortBy(_.keys(o), _.identity);
-
-                    return _.map(dates, function(d) {
-                        var categories = [
-                            "Automated Testing",
-                            "Continuous Integration",
-                            "Deployment",
-                            "Practices"
-                        ];
-
-                        var values = _.map(_.keys(o[d]["behaviours"][c]), function(k) {
-                            return o[d]["behaviours"][c][k];
-                        });
-
-                        return m + _.filter(values, _.identity).length;
-                    });
-                }
+                var loyaltyAgile = {
+                    "2015-08-01": {
+                        "focus": [],
+                        "behaviours": {
+                            "Analysis": {
+                                "User Stories are written with customer and business value in mind": false,
+                                "User Stories are written using INVEST": false,
+                                "First high level user stories are identified and then further split into story cards": true,
+                                "QA’s and BA’s work together on writing acceptance criteria": false,
+                                "All stories have acceptance criteria": false,
+                                "Customer value is measured in some way": false,
+                                "An inception is run for all major pieces of work": false
+                            },
+                            "Culture": {
+                                "The team culture is experimental and willing to try new things": false,
+                                "The team is continually striving to improve themselves and their processes": false,
+                                "The team includes all members needed to complete any work": true,
+                                "There is a common understanding of the business problem": true,
+                                "Risks are identified and made visible as early as possible": false,
+                                "Team members collaborate to share knowledge": true,
+                                "Team members are able to challenge the status-quo safely": false
+                            },
+                            "Ceremonies": {
+                                "The team has daily stand-ups": true,
+                                "All stories are shoulder checked by a BA, a QA, and the developer before moving to test": false,
+                                "The team regularly reflects on their performance with retrospectives": false,
+                                "The team regularly involves business stakeholders in incremental development by hosting showcases.": false
+                            },
+                            "Process": {
+                                "All team members are physically located in the same area": true,
+                                "The current backlog of work is visible on a physical wall": true,
+                                "The team knows what the next most important piece of work is, and any developer can work on it": true,
+                                "Team members are able to help move cards through any column when needed": true,
+                                "There is a single backlog of work": true,
+                                "Is the work in progress limited by the teams size": false
+                            },
+                            "Product Ownership": {
+                                "A single product owner is identified and able to make product decisions": true,
+                                "The product owner is actively involved in the development process and attends relevant ceremonies": true,
+                                "The product owner understands the business value of features being built": true,
+                                "The product owner is able and willing to prioritise work according to business value and delivery risk": true,
+                                "The product owner is part of the team": false
+                            }
+                        }
+                    },
+                    "2015-07-01": {
+                        "focus": [],
+                        "behaviours": {
+                            "Analysis": {
+                                "User Stories are written with customer and business value in mind": false,
+                                "User Stories are written using INVEST": false,
+                                "First high level user stories are identified and then further split into story cards": false,
+                                "QA’s and BA’s work together on writing acceptance criteria": false,
+                                "All stories have acceptance criteria": false,
+                                "Customer value is measured in some way": false,
+                                "An inception is run for all major pieces of work": false
+                            },
+                            "Culture": {
+                                "The team culture is experimental and willing to try new things": false,
+                                "The team is continually striving to improve themselves and their processes": false,
+                                "The team includes all members needed to complete any work": true,
+                                "There is a common understanding of the business problem": true,
+                                "Risks are identified and made visible as early as possible": false,
+                                "Team members collaborate to share knowledge": true,
+                                "Team members are able to challenge the status-quo safely": false
+                            },
+                            "Ceremonies": {
+                                "The team has daily stand-ups": true,
+                                "All stories are shoulder checked by a BA, a QA, and the developer before moving to test": false,
+                                "The team regularly reflects on their performance with retrospectives": false,
+                                "The team regularly involves business stakeholders in incremental development by hosting showcases.": false
+                            },
+                            "Process": {
+                                "All team members are physically located in the same area": true,
+                                "The current backlog of work is visible on a physical wall": true,
+                                "The team knows what the next most important piece of work is, and any developer can work on it": true,
+                                "Team members are able to help move cards through any column when needed": true,
+                                "There is a single backlog of work": false,
+                                "Is the work in progress limited by the teams size": false
+                            },
+                            "Product Ownership": {
+                                "A single product owner is identified and able to make product decisions": false,
+                                "The product owner is actively involved in the development process and attends relevant ceremonies": false,
+                                "The product owner understands the business value of features being built": false,
+                                "The product owner is able and willing to prioritise work according to business value and delivery risk": false,
+                                "The product owner is part of the team": false
+                            }
+                        }
+                    }
+                };
 
                 var progressFor = function(c, o) {
                     var dates = _.sortBy(_.keys(o), _.identity);
@@ -367,31 +495,19 @@
                 var palette = new Rickshaw.Color.Palette( { scheme: 'cool' } );
                 var time = new Rickshaw.Fixtures.Time();
 
-                var progressChartFor = function(selector, d) {
+                var progressChartFor = function(selector, d, categories) {
                     var g = new Rickshaw.Graph({
                         element: document.querySelector("#" + selector + "-overall"),
                         min: 0,
                         max: 30,
                         interpolation: "step",
-                        series: [
-                        {
-                            name: "Automated Testing",
-                            color: palette.color(0),
-                            data: progressFor("Automated Testing", d)
-                        }, {
-                            name: 'Continuous Integration',
-                            color: palette.color(1),
-                            data: progressFor("Continuous Integration", d)
-                        }, {
-                            name: 'Deployment',
-                            color: palette.color(2),
-                            data: progressFor("Deployment", d)
-                        }, {
-                            name: 'Practices',
-                            color: palette.color(3),
-                            data: progressFor("Practices", d)
-                        }
-                      ]
+                        series: _.map(categories, function(c, i) {
+                            return {
+                                name: c,
+                                color: palette.color(i),
+                                data: progressFor(c, d)
+                            }
+                        })
                     });
 
                     new Rickshaw.Graph.Axis.Y({
@@ -410,8 +526,27 @@
                     return g;
                 }
 
-                progressChartFor('disrupts', disrupts);
-                progressChartFor("loyalty", loyalty);
+                progressChartFor('disrupts', disrupts, [
+                    "Automated Testing",
+                    'Continuous Integration',
+                    'Deployment',
+                    'Practices'
+                ]);
+
+                progressChartFor("loyalty", loyalty, [
+                    "Automated Testing",
+                    'Continuous Integration',
+                    'Deployment',
+                    'Practices'
+                ]);
+
+                progressChartFor('loyalty-agile', loyaltyAgile, [
+                    "Analysis",
+                    "Culture",
+                    "Ceremonies",
+                    "Process",
+                    "Product Ownership"
+                ]);
 
                 _(4).times(function(i) {
                     $(".p" + (i + 1)).css("background-color", palette.color(i));
@@ -422,15 +557,8 @@
                 };
 
                 var scoreFor = function(d, o) {
-                    var categories = [
-                        "Automated Testing",
-                        'Continuous Integration',
-                        'Deployment',
-                        'Practices'
-                    ]
-
                     return sum(
-                        _.map(categories, function(c) {
+                        _.map(_.keys(o[d]["behaviours"]), function(c) {
                             return sum(
                                 _.map(o[d]["behaviours"][c], function(i) {
                                     return i ? 1 : 0;
@@ -455,7 +583,7 @@
                     return scoreFor(latest, o) - scoreFor(prev, o);
                 }
 
-                $("#loyalty-total").text(recentScore(loyalty));
+                $("#loyalty-total").text("" + recentScore(loyalty) + " | " + recentScore(loyaltyAgile));
                 $("#disrupts-total").text(recentScore(disrupts));
 
                 var drawDelta = function(selector, team) {
@@ -479,7 +607,9 @@
                 };
 
                 drawDelta("#disrupts-delta", disrupts);
+
                 drawDelta("#loyalty-delta", loyalty);
+                drawDelta("#loyalty-agile-delta", loyaltyAgile);
 
                 var drawFocus = function(selector, team) {
                     var dates = _.sortBy(_.keys(team), _.identity);
@@ -501,6 +631,7 @@
 
                 drawFocus("#disrupts-focus", disrupts);
                 drawFocus("#loyalty-focus", loyalty);
+                drawFocus("#loyalty-agile-focus", loyaltyAgile);
             });
         </script>
     </head>
@@ -533,8 +664,11 @@
         <div class="info">
             <div class="score">
                 <div>
-                    <div id="loyalty-total" class="total"></div>
-                    <div id="loyalty-delta" class="delta"></div>
+                    <div id="loyalty-total" class="total x2"></div>
+                    <div class="deltas">
+                        <div id="loyalty-delta" class="delta"></div>
+                        <div id="loyalty-agile-delta" class="delta"></div>
+                    </div>
                     <div class="clear"></div>
                 </div>
 
@@ -543,9 +677,19 @@
                 </div>
             </div>
 
-            <div class="chart-container">
-                <div id="loyalty-y-axis" class="cd-checklist-chart-y-axis"></div>
-                <div id="loyalty-overall" class="cd-checklist-chart"></div>
+            <div class="side-by-side-charts">
+                <div class="chart-container">
+                    <div id="loyalty-y-axis" class="cd-checklist-chart-y-axis"></div>
+                    <div id="loyalty-overall" class="cd-checklist-chart"></div>
+                    <h3>technical</h3>
+                </div>
+
+                <div class="chart-container">
+                    <div id="loyalty-agile-y-axis" class="cd-checklist-chart-y-axis"></div>
+                    <div id="loyalty-agile-overall" class="cd-checklist-chart"></div>
+                    <h3>project management</h3>
+                </div>
+                <div class="clear"></div>
             </div>
         </div>
 
