@@ -172,21 +172,37 @@
             font-weight: 300;
         }
 
+        #loyalty-tech-total, #loyalty-agile-total {
+            position: relative;
+        }
+
+        #loyalty-tech-total:after, #loyalty-agile-total:after {
+            position: absolute;
+            content: 'tech';
+            left: 0px;
+            bottom: -7px;
+            font-size: 10px;
+        }
+
+        #loyalty-agile-total:after {
+            content: 'prj mgt';
+        }
+
         #loyalty-delta, #loyalty-agile-delta {
             position: relative;
         }
 
         #loyalty-delta:after, #loyalty-agile-delta:after {
             position: absolute;
-            content: 'technical';
-            left: 25px;
+            content: 'tech';
+            left: 0;
             top: -5px;
             font-size: 10px;
         }
 
         #loyalty-agile-delta:after {
-            left: 20px;
-            content: 'project mgt';
+            left: 0;
+            content: 'prj mgt';
         }
 
         .detail h4 {
@@ -611,7 +627,9 @@
                     return scoreFor(latest, o) - scoreFor(prev, o);
                 }
 
-                $("#loyalty-total").text("" + recentScore(loyalty) + " | " + recentScore(loyaltyAgile));
+                // $("#loyalty-total").text("" + recentScore(loyalty) + " | " + recentScore(loyaltyAgile));
+                $("#loyalty-tech-total").text(recentScore(loyalty));
+                $("#loyalty-agile-total").text(recentScore(loyaltyAgile));
                 $("#disrupts-total").text(recentScore(disrupts));
 
                 var allCategories = _.keys(disrupts[_.keys(disrupts)[0]]["behaviours"]);
@@ -711,7 +729,11 @@
         <div class="info">
             <div class="score">
                 <div>
-                    <div id="loyalty-total" class="total x2"></div>
+                    <div id="loyalty-total" class="total x2">
+                        <span id="loyalty-tech-total"></span>
+                        &nbsp;|&nbsp;
+                        <span id="loyalty-agile-total"></span>
+                    </div>
                     <div class="deltas">
                         <div id="loyalty-delta" class="delta"></div>
                         <div id="loyalty-agile-delta" class="delta"></div>
