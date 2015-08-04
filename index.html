@@ -319,6 +319,101 @@
                     }
                 };
 
+                var disruptsAgile = {
+                    "2015-08-01": {
+                        "focus": [
+                            "The team is continually striving to improve themselves and their processes",
+                            "The team regularly involves business stakeholders in incremental development by hosting showcases.",
+                            "The team knows what the next most important piece of work is, and any developer can work on it"
+                        ],
+                        "behaviours": {
+                            "Analysis": {
+                                "User Stories are written with customer and business value in mind": true,
+                                "User Stories are written using INVEST": true,
+                                "First high level user stories are identified and then further split into story cards": true,
+                                "QA’s and BA’s work together on writing acceptance criteria": false,
+                                "All stories have acceptance criteria": false,
+                                "Customer value is measured in some way": false,
+                                "An inception is run for all major pieces of work": false
+                            },
+                            "Culture": {
+                                "The team culture is experimental and willing to try new things": true,
+                                "The team is continually striving to improve themselves and their processes": false,
+                                "The team includes all members needed to complete any work": false,
+                                "There is a common understanding of the business problem": true,
+                                "Risks are identified and made visible as early as possible": false,
+                                "Team members collaborate to share knowledge": true,
+                                "Team members are able to challenge the status-quo safely": true
+                            },
+                            "Ceremonies": {
+                                "The team has daily stand-ups": true,
+                                "All stories are shoulder checked by a BA, a QA, and the developer before moving to test": false,
+                                "The team regularly reflects on their performance with retrospectives": true,
+                                "The team regularly involves business stakeholders in incremental development by hosting showcases.": false
+                            },
+                            "Process": {
+                                "All team members are physically located in the same area": true,
+                                "The current backlog of work is visible on a physical wall": true,
+                                "The team knows what the next most important piece of work is, and any developer can work on it": false,
+                                "Team members are able to help move cards through any column when needed": false,
+                                "There is a single backlog of work": false,
+                                "Is the work in progress limited by the teams size": true
+                            },
+                            "Product Ownership": {
+                                "A single product owner is identified and able to make product decisions": false,
+                                "The product owner is actively involved in the development process and attends relevant ceremonies": false,
+                                "The product owner understands the business value of features being built": false,
+                                "The product owner is able and willing to prioritise work according to business value and delivery risk": true,
+                                "The product owner is part of the team": false
+                            }
+                        }
+                    },
+                    "2015-07-01": {
+                        "focus": [],
+                        "behaviours": {
+                            "Analysis": {
+                                "User Stories are written with customer and business value in mind": true,
+                                "User Stories are written using INVEST": true,
+                                "First high level user stories are identified and then further split into story cards": true,
+                                "QA’s and BA’s work together on writing acceptance criteria": false,
+                                "All stories have acceptance criteria": false,
+                                "Customer value is measured in some way": false,
+                                "An inception is run for all major pieces of work": false
+                            },
+                            "Culture": {
+                                "The team culture is experimental and willing to try new things": true,
+                                "The team is continually striving to improve themselves and their processes": false,
+                                "The team includes all members needed to complete any work": false,
+                                "There is a common understanding of the business problem": true,
+                                "Risks are identified and made visible as early as possible": false,
+                                "Team members collaborate to share knowledge": false,
+                                "Team members are able to challenge the status-quo safely": true
+                            },
+                            "Ceremonies": {
+                                "The team has daily stand-ups": true,
+                                "All stories are shoulder checked by a BA, a QA, and the developer before moving to test": false,
+                                "The team regularly reflects on their performance with retrospectives": true,
+                                "The team regularly involves business stakeholders in incremental development by hosting showcases.": false
+                            },
+                            "Process": {
+                                "All team members are physically located in the same area": true,
+                                "The current backlog of work is visible on a physical wall": true,
+                                "The team knows what the next most important piece of work is, and any developer can work on it": false,
+                                "Team members are able to help move cards through any column when needed": false,
+                                "There is a single backlog of work": false,
+                                "Is the work in progress limited by the teams size": false
+                            },
+                            "Product Ownership": {
+                                "A single product owner is identified and able to make product decisions": false,
+                                "The product owner is actively involved in the development process and attends relevant ceremonies": false,
+                                "The product owner understands the business value of features being built": false,
+                                "The product owner is able and willing to prioritise work according to business value and delivery risk": true,
+                                "The product owner is part of the team": false
+                            }
+                        }
+                    }
+                };
+
                 var loyalty = {
                     "2015-08-01": {
                         "focus": [
@@ -581,6 +676,14 @@
                     'Practices'
                 ]);
 
+                progressChartFor('disrupts-agile', disruptsAgile, [
+                    "Analysis",
+                    "Culture",
+                    "Ceremonies",
+                    "Process",
+                    "Product Ownership"
+                ], 4);
+
                 progressChartFor("loyalty", loyalty, [
                     "Automated Testing",
                     'Continuous Integration',
@@ -630,7 +733,9 @@
                 // $("#loyalty-total").text("" + recentScore(loyalty) + " | " + recentScore(loyaltyAgile));
                 $("#loyalty-tech-total").text(recentScore(loyalty));
                 $("#loyalty-agile-total").text(recentScore(loyaltyAgile));
-                $("#disrupts-total").text(recentScore(disrupts));
+
+                $("#disrupts-tech-total").text(recentScore(disrupts));
+                $("#disrupts-agile-total").text(recentScore(disruptsAgile));
 
                 var allCategories = _.keys(disrupts[_.keys(disrupts)[0]]["behaviours"]);
                 allCategories = allCategories.concat(_.keys(loyaltyAgile[_.keys(loyaltyAgile)[0]]["behaviours"]));
@@ -672,6 +777,7 @@
                 };
 
                 drawDelta("#disrupts-delta", disrupts);
+                drawDelta("#disrupts-agile-delta", disruptsAgile);
 
                 drawDelta("#loyalty-delta", loyalty);
                 drawDelta("#loyalty-agile-delta", loyaltyAgile);
@@ -695,6 +801,8 @@
                 }
 
                 drawFocus("#disrupts-focus", disrupts);
+                drawFocus("#disrupts-agile-focus", disruptsAgile);
+
                 drawFocus("#loyalty-focus", loyalty);
                 drawFocus("#loyalty-agile-focus", loyaltyAgile);
             });
@@ -708,20 +816,41 @@
         <div class="info">
             <div class="score">
                 <div>
-                    <div id="disrupts-total" class="total"></div>
-                    <div id="disrupts-delta" class="delta"></div>
+                    <div id="disrupts-total" class="total x2">
+                        <span id="disrupts-tech-total"></span>
+                        &nbsp;|&nbsp;
+                        <span id="disrupts-agile-total"></span>
+                    </div>
+                    <div class="deltas">
+                        <div id="disrupts-delta" class="delta"></div>
+                        <div id="disrupts-agile-delta" class="delta"></div>
+                    </div>
                     <div class="clear"></div>
                 </div>
 
-                <div id="disrupts-focus" class="focus">
-                    <h3>Current focus areas</h3>
+                
+            </div>
+            <div id="disrupts-focus" class="focus">
+                <h3>Current tech focus areas</h3>
+            </div>
+
+            <div id="disrupts-agile-focus" class="focus">
+                <h3>Current PM focus areas</h3>
+            </div>
+
+            <div class="side-by-side-charts">
+                <div class="chart-container">
+                    <div id="disrupts-y-axis" class="cd-checklist-chart-y-axis"></div>
+                    <div id="disrupts-overall" class="cd-checklist-chart"></div>
+                    <h3>technical</h3>
                 </div>
-            </div>
-            <div id="disrupts-focus">
-            </div>
-            <div class="chart-container">
-                <div id="disrupts-y-axis" class="cd-checklist-chart-y-axis"></div>
-                <div id="disrupts-overall" class="cd-checklist-chart"></div>
+
+                <div class="chart-container">
+                    <div id="disrupts-agile-y-axis" class="cd-checklist-chart-y-axis"></div>
+                    <div id="disrupts-agile-overall" class="cd-checklist-chart"></div>
+                    <h3>project management</h3>
+                </div>
+                <div class="clear"></div>
             </div>
         </div>
 
@@ -740,10 +869,14 @@
                     </div>
                     <div class="clear"></div>
                 </div>
+            </div>
 
-                <div id="loyalty-focus" class="focus">
-                    <h3>Current focus areas</h3>
-                </div>
+            <div id="loyalty-focus" class="focus">
+                <h3>Current tech focus areas</h3>
+            </div>
+
+            <div id="loyalty-agile-focus" class="focus">
+                <h3>Current PM focus areas</h3>
             </div>
 
             <div class="side-by-side-charts">
