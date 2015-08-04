@@ -120,7 +120,6 @@
 
         .change-i.eq {
             color: #FFC107;
-            /*transform: rotate(90deg);*/
         }
 
         .x_tick {
@@ -188,6 +187,11 @@
         #loyalty-agile-delta:after {
             left: 20px;
             content: 'project mgt';
+        }
+
+        .detail h4 {
+            margin-left: 5px;
+            margin-top: 5px;
         }
 
         </style>
@@ -529,6 +533,25 @@
                     new Rickshaw.Graph.Axis.Time({
                         graph: g
                     });
+
+                    new Rickshaw.Graph.HoverDetail( {
+                        graph: g,
+                        formatter: function(series, x, y, formattedX, formattedY, point) {
+                            var date = new Date(x * 1000);
+                            var key = date.toISOString().slice(0, 10);
+                            var category = d[key]["behaviours"][point.name];
+
+                            var items = _.reduce(category, function(m, v, k) {
+                                if (v) {
+                                    return m + '<li class="check"><i class="fa fa-li fa-check-square-o"></i>' + k + '</li>';
+                                } else {
+                                    return m + '<li class="uncheck"><i class="fa fa-li fa-square-o"></i>' + k + '</li>';
+                                }
+                            }, "");
+
+                            return '<h4>' + point.name + '</h4><ul class="hover-checklist fa-ul">' + items + '</ul>';
+                        }
+                    } );
 
                     g.render();
 
