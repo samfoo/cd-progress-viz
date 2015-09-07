@@ -271,786 +271,259 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
         <script>
-            var disrupts = {
-                "2015-08-01": {
-                    "focus": [
-                        "Single command to run unit tests",
-                        "Single command to run acceptance tests",
-                        "Production can be deployed to without downtime"
-                    ],
-                    "behaviours": {
-                        "Automated Testing": {
-                            "A useful level of code coverage is maintained by the team": true,
-                            "All new code has automated tests": true,
-                            "Single command to run unit tests": false,
-                            "Single command to run acceptance tests": false,
-                            "Testers and developers collaborate on writing tests": true,
-                            "Tests setup their own test data": true,
-                            "Tests complete in less than 10 minutes": false,
-                            "Unit tests are written first": false
-                        },
-                        "Continuous Integration": {
-                            "Build scripts are alongside code in a single repository": false,
-                            "Developers run tests before pushing and only push when code passes tests": true,
-                            "Broken builds are fixed or reverted immediately, and no checkins are made on top of them": false,
-                            "Binaries created once for use in all environments": true,
-                            "Data migrations and scripts versioned along with the application source code": false
-                        },
-                        "Deployment": {
-                            "Deployment scripts alongside code in a single repository": false,
-                            "All release steps tested in a production mirror": true,
-                            "Automated deployment to production": false,
-                            "Automated smoke tests run during deployment into production": false,
-                            "Production can be deployed to without downtime": false,
-                            "Problems in production are detectable and visible to the whole team and prioritised like any other work": false,
-                            "The health of production systems is easily determinable and visible": true
-                        },
-                        "Practices": {
-                            "Coding standards are agreed upon and followed": true,
-                            "Check-ins happen at least once a day": true,
-                            "All code is peer reviewed": true,
-                            "Changes can be easily reverted": true,
-                            "Team practices trunk-based development as a general rule, and knows when it is appropriate to branch": false,
-                            "Test results radiated and visible to the whole team": true,
-                            "Code is collectively owned, any developer can work on any story": false,
-                            "Pair programming used for rapid feedback and is the default way of working in the team": true,
-                            "Development and test environment are as similar to production as is economically feasible": true,
-                            "Team owns their production system and configuration": false
-                        }
-                    }
-                },
-                "2015-07-01": {
-                    "focus": [
-                        "Single command to run unit tests",
-                        "Single command to run acceptance tests",
-                        "Production can be deployed to without downtime"
-                    ],
-                    "behaviours": {
-                        "Automated Testing": {
-                            "A useful level of code coverage is maintained by the team": true,
-                            "All new code has automated tests": true,
-                            "Single command to run unit tests": false,
-                            "Single command to run acceptance tests": false,
-                            "Testers and developers collaborate on writing tests": true,
-                            "Tests setup their own test data": true,
-                            "Tests complete in less than 10 minutes": false,
-                            "Unit tests are written first": false
-                        },
-                        "Continuous Integration": {
-                            "Build scripts are alongside code in a single repository": false,
-                            "Developers run tests before pushing and only push when code passes tests": false,
-                            "Broken builds are fixed or reverted immediately, and no checkins are made on top of them": false,
-                            "Binaries created once for use in all environments": true,
-                            "Data migrations and scripts versioned along with the application source code": false
-                        },
-                        "Deployment": {
-                            "Deployment scripts alongside code in a single repository": false,
-                            "All release steps tested in a production mirror": true,
-                            "Automated deployment to production": false,
-                            "Automated smoke tests run during deployment into production": false,
-                            "Production can be deployed to without downtime": false,
-                            "Problems in production are detectable and visible to the whole team and prioritised like any other work": false,
-                            "The health of production systems is easily determinable and visible": true
-                        },
-                        "Practices": {
-                            "Coding standards are agreed upon and followed": true,
-                            "Check-ins happen at least once a day": true,
-                            "All code is peer reviewed": true,
-                            "Changes can be easily reverted": true,
-                            "Team practices trunk-based development as a general rule, and knows when it is appropriate to branch": false,
-                            "Test results radiated and visible to the whole team": true,
-                            "Code is collectively owned, any developer can work on any story": false,
-                            "Pair programming used for rapid feedback and is the default way of working in the team": false,
-                            "Development and test environment are as similar to production as is economically feasible": true,
-                            "Team owns their production system and configuration": false
-                        }
-                    }
-                }
-            };
+            var ready = function(disrupts, disruptsAgile, loyalty, loyaltyAgile, mobile, mobileAgile) {
+                var palette = new Rickshaw.Color.Palette( { scheme: 'classic9' } );
+                var time = new Rickshaw.Fixtures.Time();
 
-            var disruptsAgile = {
-                "2015-08-01": {
-                    "focus": [
-                        "The team is continually striving to improve themselves and their processes",
-                        "The team regularly involves business stakeholders in incremental development by hosting showcases.",
-                        "The team knows what the next most important piece of work is, and any developer can work on it"
-                    ],
-                    "behaviours": {
-                        "Analysis": {
-                            "User Stories are written with customer and business value in mind": true,
-                            "User Stories are written using INVEST": true,
-                            "First high level user stories are identified and then further split into story cards": true,
-                            "QA’s and BA’s work together on writing acceptance criteria": false,
-                            "All stories have acceptance criteria": false,
-                            "Customer value is measured in some way": false,
-                            "An inception is run for all major pieces of work": false
-                        },
-                        "Culture": {
-                            "The team culture is experimental and willing to try new things": true,
-                            "The team is continually striving to improve themselves and their processes": false,
-                            "The team includes all members needed to complete any work": false,
-                            "There is a common understanding of the business problem": true,
-                            "Risks are identified and made visible as early as possible": false,
-                            "Team members collaborate to share knowledge": true,
-                            "Team members are able to challenge the status-quo safely": true
-                        },
-                        "Ceremonies": {
-                            "The team has daily stand-ups": true,
-                            "All stories are shoulder checked by a BA, a QA, and the developer before moving to test": false,
-                            "The team regularly reflects on their performance with retrospectives": true,
-                            "The team regularly involves business stakeholders in incremental development by hosting showcases.": false
-                        },
-                        "Process": {
-                            "All team members are physically located in the same area": true,
-                            "The current backlog of work is visible on a physical wall": true,
-                            "The team knows what the next most important piece of work is, and any developer can work on it": false,
-                            "Team members are able to help move cards through any column when needed": false,
-                            "There is a single backlog of work": false,
-                            "Is the work in progress limited by the teams size": true
-                        },
-                        "Product Ownership": {
-                            "A single product owner is identified and able to make product decisions": false,
-                            "The product owner is actively involved in the development process and attends relevant ceremonies": false,
-                            "The product owner understands the business value of features being built": false,
-                            "The product owner is able and willing to prioritise work according to business value and delivery risk": true,
-                            "The product owner is part of the team": false
-                        }
-                    }
-                },
-                "2015-07-01": {
-                    "focus": [],
-                    "behaviours": {
-                        "Analysis": {
-                            "User Stories are written with customer and business value in mind": true,
-                            "User Stories are written using INVEST": true,
-                            "First high level user stories are identified and then further split into story cards": true,
-                            "QA’s and BA’s work together on writing acceptance criteria": false,
-                            "All stories have acceptance criteria": false,
-                            "Customer value is measured in some way": false,
-                            "An inception is run for all major pieces of work": false
-                        },
-                        "Culture": {
-                            "The team culture is experimental and willing to try new things": true,
-                            "The team is continually striving to improve themselves and their processes": false,
-                            "The team includes all members needed to complete any work": false,
-                            "There is a common understanding of the business problem": true,
-                            "Risks are identified and made visible as early as possible": false,
-                            "Team members collaborate to share knowledge": false,
-                            "Team members are able to challenge the status-quo safely": true
-                        },
-                        "Ceremonies": {
-                            "The team has daily stand-ups": true,
-                            "All stories are shoulder checked by a BA, a QA, and the developer before moving to test": false,
-                            "The team regularly reflects on their performance with retrospectives": true,
-                            "The team regularly involves business stakeholders in incremental development by hosting showcases.": false
-                        },
-                        "Process": {
-                            "All team members are physically located in the same area": true,
-                            "The current backlog of work is visible on a physical wall": true,
-                            "The team knows what the next most important piece of work is, and any developer can work on it": false,
-                            "Team members are able to help move cards through any column when needed": false,
-                            "There is a single backlog of work": false,
-                            "Is the work in progress limited by the teams size": false
-                        },
-                        "Product Ownership": {
-                            "A single product owner is identified and able to make product decisions": false,
-                            "The product owner is actively involved in the development process and attends relevant ceremonies": false,
-                            "The product owner understands the business value of features being built": false,
-                            "The product owner is able and willing to prioritise work according to business value and delivery risk": true,
-                            "The product owner is part of the team": false
-                        }
-                    }
-                }
-            };
+                var renderCharts = function() {
+                    var progressFor = function(c, o) {
+                        var dates = _.sortBy(_.keys(o), _.identity);
 
-            var loyalty = {
-                "2015-08-01": {
-                    "focus": [
-                        "Testers and developers collaborate on writing tests"
-                    ],
-                    "behaviours": {
-                        "Automated Testing": {
-                            "A useful level of code coverage is maintained by the team": false,
-                            "All new code has automated tests": false,
-                            "Single command to run unit tests": false,
-                            "Single command to run acceptance tests": false,
-                            "Testers and developers collaborate on writing tests": false,
-                            "Tests setup their own test data": false,
-                            "Tests complete in less than 10 minutes": false,
-                            "Unit tests are written first": false
-                        },
-                        "Continuous Integration": {
-                            "Build scripts are alongside code in a single repository": false,
-                            "Developers run tests before pushing and only push when code passes tests": false,
-                            "Broken builds are fixed or reverted immediately, and no checkins are made on top of them": false,
-                            "Binaries created once for use in all environments": false,
-                            "Data migrations and scripts versioned along with the application source code": false
-                        },
-                        "Deployment": {
-                            "Deployment scripts alongside code in a single repository": false,
-                            "All release steps tested in a production mirror": true,
-                            "Automated deployment to production": false,
-                            "Automated smoke tests run during deployment into production": false,
-                            "Production can be deployed to without downtime": false,
-                            "Problems in production are detectable and visible to the whole team and prioritised like any other work": false,
-                            "The health of production systems is easily determinable and visible": true
-                        },
-                        "Practices": {
-                            "Coding standards are agreed upon and followed": false,
-                            "Check-ins happen at least once a day": false,
-                            "All code is peer reviewed": false,
-                            "Changes can be easily reverted": false,
-                            "Team practices trunk-based development as a general rule, and knows when it is appropriate to branch": false,
-                            "Test results radiated and visible to the whole team": false,
-                            "Code is collectively owned, any developer can work on any story": false,
-                            "Pair programming used for rapid feedback and is the default way of working in the team": false,
-                            "Development and test environment are as similar to production as is economically feasible": true,
-                            "Team owns their production system and configuration": false
-                        }
-                    }
-                },
-                "2015-07-01": {
-                    "focus": [
-                        "Testers and developers collaborate on writing tests",
-                        "All code is peer reviewed",
-                        "All new code has automated tests"
-                    ],
-                    "behaviours": {
-                        "Automated Testing": {
-                            "A useful level of code coverage is maintained by the team": false,
-                            "All new code has automated tests": false,
-                            "Single command to run unit tests": false,
-                            "Single command to run acceptance tests": false,
-                            "Testers and developers collaborate on writing tests": false,
-                            "Tests setup their own test data": false,
-                            "Tests complete in less than 10 minutes": false,
-                            "Unit tests are written first": false
-                        },
-                        "Continuous Integration": {
-                            "Build scripts are alongside code in a single repository": false,
-                            "Developers run tests before pushing and only push when code passes tests": false,
-                            "Broken builds are fixed or reverted immediately, and no checkins are made on top of them": false,
-                            "Binaries created once for use in all environments": false,
-                            "Data migrations and scripts versioned along with the application source code": false
-                        },
-                        "Deployment": {
-                            "Deployment scripts alongside code in a single repository": false,
-                            "All release steps tested in a production mirror": true,
-                            "Automated deployment to production": false,
-                            "Automated smoke tests run during deployment into production": false,
-                            "Production can be deployed to without downtime": false,
-                            "Problems in production are detectable and visible to the whole team and prioritised like any other work": false,
-                            "The health of production systems is easily determinable and visible": true
-                        },
-                        "Practices": {
-                            "Coding standards are agreed upon and followed": false,
-                            "Check-ins happen at least once a day": false,
-                            "All code is peer reviewed": false,
-                            "Changes can be easily reverted": false,
-                            "Team practices trunk-based development as a general rule, and knows when it is appropriate to branch": false,
-                            "Test results radiated and visible to the whole team": false,
-                            "Code is collectively owned, any developer can work on any story": false,
-                            "Pair programming used for rapid feedback and is the default way of working in the team": false,
-                            "Development and test environment are as similar to production as is economically feasible": true,
-                            "Team owns their production system and configuration": false
-                        }
-                    }
-                }
-            };
+                        return _.map(dates, function(d) {
+                            var values = _.map(_.keys(o[d]["behaviours"][c]), function(k) {
+                                return o[d]["behaviours"][c][k];
+                            });
 
-            var loyaltyAgile = {
-                "2015-08-01": {
-                    "focus": [
-                        "QA’s and BA’s work together on writing acceptance criteria",
-                        "All stories are shoulder checked by a BA, a QA, and the developer before moving to test"
-                    ],
-                    "behaviours": {
-                        "Analysis": {
-                            "User Stories are written with customer and business value in mind": false,
-                            "User Stories are written using INVEST": false,
-                            "First high level user stories are identified and then further split into story cards": true,
-                            "QA’s and BA’s work together on writing acceptance criteria": false,
-                            "All stories have acceptance criteria": false,
-                            "Customer value is measured in some way": false,
-                            "An inception is run for all major pieces of work": false
-                        },
-                        "Culture": {
-                            "The team culture is experimental and willing to try new things": false,
-                            "The team is continually striving to improve themselves and their processes": false,
-                            "The team includes all members needed to complete any work": true,
-                            "There is a common understanding of the business problem": true,
-                            "Risks are identified and made visible as early as possible": false,
-                            "Team members collaborate to share knowledge": true,
-                            "Team members are able to challenge the status-quo safely": false
-                        },
-                        "Ceremonies": {
-                            "The team has daily stand-ups": true,
-                            "All stories are shoulder checked by a BA, a QA, and the developer before moving to test": false,
-                            "The team regularly reflects on their performance with retrospectives": false,
-                            "The team regularly involves business stakeholders in incremental development by hosting showcases.": false
-                        },
-                        "Process": {
-                            "All team members are physically located in the same area": true,
-                            "The current backlog of work is visible on a physical wall": true,
-                            "The team knows what the next most important piece of work is, and any developer can work on it": true,
-                            "Team members are able to help move cards through any column when needed": true,
-                            "There is a single backlog of work": true,
-                            "Is the work in progress limited by the teams size": false
-                        },
-                        "Product Ownership": {
-                            "A single product owner is identified and able to make product decisions": true,
-                            "The product owner is actively involved in the development process and attends relevant ceremonies": true,
-                            "The product owner understands the business value of features being built": true,
-                            "The product owner is able and willing to prioritise work according to business value and delivery risk": true,
-                            "The product owner is part of the team": false
-                        }
+                            return {"x": new Date(d).getTime()/1000, "y": _.filter(values, _.identity).length};
+                        });
                     }
-                },
-                "2015-07-01": {
-                    "focus": [],
-                    "behaviours": {
-                        "Analysis": {
-                            "User Stories are written with customer and business value in mind": false,
-                            "User Stories are written using INVEST": false,
-                            "First high level user stories are identified and then further split into story cards": false,
-                            "QA’s and BA’s work together on writing acceptance criteria": false,
-                            "All stories have acceptance criteria": false,
-                            "Customer value is measured in some way": false,
-                            "An inception is run for all major pieces of work": false
-                        },
-                        "Culture": {
-                            "The team culture is experimental and willing to try new things": false,
-                            "The team is continually striving to improve themselves and their processes": false,
-                            "The team includes all members needed to complete any work": true,
-                            "There is a common understanding of the business problem": true,
-                            "Risks are identified and made visible as early as possible": false,
-                            "Team members collaborate to share knowledge": true,
-                            "Team members are able to challenge the status-quo safely": false
-                        },
-                        "Ceremonies": {
-                            "The team has daily stand-ups": true,
-                            "All stories are shoulder checked by a BA, a QA, and the developer before moving to test": false,
-                            "The team regularly reflects on their performance with retrospectives": false,
-                            "The team regularly involves business stakeholders in incremental development by hosting showcases.": false
-                        },
-                        "Process": {
-                            "All team members are physically located in the same area": true,
-                            "The current backlog of work is visible on a physical wall": true,
-                            "The team knows what the next most important piece of work is, and any developer can work on it": true,
-                            "Team members are able to help move cards through any column when needed": true,
-                            "There is a single backlog of work": false,
-                            "Is the work in progress limited by the teams size": false
-                        },
-                        "Product Ownership": {
-                            "A single product owner is identified and able to make product decisions": false,
-                            "The product owner is actively involved in the development process and attends relevant ceremonies": false,
-                            "The product owner understands the business value of features being built": false,
-                            "The product owner is able and willing to prioritise work according to business value and delivery risk": false,
-                            "The product owner is part of the team": false
-                        }
-                    }
-                }
-            };
 
-            var mobile = {
-                "2015-08-01": {
-                    "focus": [],
-                    "behaviours": {
-                        "Automated Testing": {
-                            "A useful level of code coverage is maintained by the team": false,
-                            "All new code has automated tests": false,
-                            "Single command to run unit tests": true,
-                            "Single command to run acceptance tests": false,
-                            "Testers and developers collaborate on writing tests": false,
-                            "Tests setup their own test data": false,
-                            "Tests complete in less than 10 minutes": true,
-                            "Unit tests are written first": false
-                        },
-                        "Continuous Integration": {
-                            "Build scripts are alongside code in a single repository": true,
-                            "Developers run tests before pushing and only push when code passes tests": false,
-                            "Broken builds are fixed or reverted immediately, and no checkins are made on top of them": false,
-                            "Binaries created once for use in all environments": true,
-                            "Data migrations and scripts versioned along with the application source code": false
-                        },
-                        "Deployment": {
-                            "Deployment scripts alongside code in a single repository": false,
-                            "All release steps tested in a production mirror": false,
-                            "Automated deployment to production": false,
-                            "Automated smoke tests run during deployment into production": false,
-                            "Production can be deployed to without downtime": false,
-                            "Problems in production are detectable and visible to the whole team and prioritised like any other work": true,
-                            "The health of production systems is easily determinable and visible": false
-                        },
-                        "Practices": {
-                            "Coding standards are agreed upon and followed": true,
-                            "Check-ins happen at least once a day": true,
-                            "All code is peer reviewed": false,
-                            "Changes can be easily reverted": true,
-                            "Team practices trunk-based development as a general rule, and knows when it is appropriate to branch": true,
-                            "Test results radiated and visible to the whole team": true,
-                            "Code is collectively owned, any developer can work on any story": true,
-                            "Pair programming used for rapid feedback and is the default way of working in the team": false,
-                            "Development and test environment are as similar to production as is economically feasible": false,
-                            "Team owns their production system and configuration": false
-                        }
-                    }
-                },
-                "2015-07-01": {
-                    "focus": [],
-                    "behaviours": {
-                        "Automated Testing": {
-                            "A useful level of code coverage is maintained by the team": false,
-                            "All new code has automated tests": false,
-                            "Single command to run unit tests": false,
-                            "Single command to run acceptance tests": false,
-                            "Testers and developers collaborate on writing tests": false,
-                            "Tests setup their own test data": false,
-                            "Tests complete in less than 10 minutes": false,
-                            "Unit tests are written first": false
-                        },
-                        "Continuous Integration": {
-                            "Build scripts are alongside code in a single repository": false,
-                            "Developers run tests before pushing and only push when code passes tests": false,
-                            "Broken builds are fixed or reverted immediately, and no checkins are made on top of them": false,
-                            "Binaries created once for use in all environments": false,
-                            "Data migrations and scripts versioned along with the application source code": false
-                        },
-                        "Deployment": {
-                            "Deployment scripts alongside code in a single repository": false,
-                            "All release steps tested in a production mirror": false,
-                            "Automated deployment to production": false,
-                            "Automated smoke tests run during deployment into production": false,
-                            "Production can be deployed to without downtime": false,
-                            "Problems in production are detectable and visible to the whole team and prioritised like any other work": false,
-                            "The health of production systems is easily determinable and visible": false
-                        },
-                        "Practices": {
-                            "Coding standards are agreed upon and followed": false,
-                            "Check-ins happen at least once a day": false,
-                            "All code is peer reviewed": false,
-                            "Changes can be easily reverted": false,
-                            "Team practices trunk-based development as a general rule, and knows when it is appropriate to branch": false,
-                            "Test results radiated and visible to the whole team": false,
-                            "Code is collectively owned, any developer can work on any story": false,
-                            "Pair programming used for rapid feedback and is the default way of working in the team": false,
-                            "Development and test environment are as similar to production as is economically feasible": false,
-                            "Team owns their production system and configuration": false
-                        }
-                    }
-                }
-            };
+                    var progressChartFor = function(selector, d, categories, paletteOffset) {
+                        paletteOffset = paletteOffset || 0;
 
-            var mobileAgile = {
-                "2015-08-01": {
-                    "focus": [],
-                    "behaviours": {
-                        "Analysis": {
-                            "User Stories are written with customer and business value in mind": false,
-                            "User Stories are written using INVEST": false,
-                            "First high level user stories are identified and then further split into story cards": false,
-                            "QA’s and BA’s work together on writing acceptance criteria": false,
-                            "All stories have acceptance criteria": false,
-                            "Customer value is measured in some way": false,
-                            "An inception is run for all major pieces of work": false
-                        },
-                        "Culture": {
-                            "The team culture is experimental and willing to try new things": false,
-                            "The team is continually striving to improve themselves and their processes": false,
-                            "The team includes all members needed to complete any work": false,
-                            "There is a common understanding of the business problem": false,
-                            "Risks are identified and made visible as early as possible": false,
-                            "Team members collaborate to share knowledge": false,
-                            "Team members are able to challenge the status-quo safely": false
-                        },
-                        "Ceremonies": {
-                            "The team has daily stand-ups": false,
-                            "All stories are shoulder checked by a BA, a QA, and the developer before moving to test": false,
-                            "The team regularly reflects on their performance with retrospectives": false,
-                            "The team regularly involves business stakeholders in incremental development by hosting showcases.": false
-                        },
-                        "Process": {
-                            "All team members are physically located in the same area": false,
-                            "The current backlog of work is visible on a physical wall": false,
-                            "The team knows what the next most important piece of work is, and any developer can work on it": false,
-                            "Team members are able to help move cards through any column when needed": false,
-                            "There is a single backlog of work": false,
-                            "Is the work in progress limited by the teams size": false
-                        },
-                        "Product Ownership": {
-                            "A single product owner is identified and able to make product decisions": false,
-                            "The product owner is actively involved in the development process and attends relevant ceremonies": false,
-                            "The product owner understands the business value of features being built": false,
-                            "The product owner is able and willing to prioritise work according to business value and delivery risk": false,
-                            "The product owner is part of the team": false
-                        }
-                    }
-                },
-                "2015-07-01": {
-                    "focus": [],
-                    "behaviours": {
-                        "Analysis": {
-                            "User Stories are written with customer and business value in mind": false,
-                            "User Stories are written using INVEST": false,
-                            "First high level user stories are identified and then further split into story cards": false,
-                            "QA’s and BA’s work together on writing acceptance criteria": false,
-                            "All stories have acceptance criteria": false,
-                            "Customer value is measured in some way": false,
-                            "An inception is run for all major pieces of work": false
-                        },
-                        "Culture": {
-                            "The team culture is experimental and willing to try new things": false,
-                            "The team is continually striving to improve themselves and their processes": false,
-                            "The team includes all members needed to complete any work": false,
-                            "There is a common understanding of the business problem": false,
-                            "Risks are identified and made visible as early as possible": false,
-                            "Team members collaborate to share knowledge": false,
-                            "Team members are able to challenge the status-quo safely": false
-                        },
-                        "Ceremonies": {
-                            "The team has daily stand-ups": false,
-                            "All stories are shoulder checked by a BA, a QA, and the developer before moving to test": false,
-                            "The team regularly reflects on their performance with retrospectives": false,
-                            "The team regularly involves business stakeholders in incremental development by hosting showcases.": false
-                        },
-                        "Process": {
-                            "All team members are physically located in the same area": false,
-                            "The current backlog of work is visible on a physical wall": false,
-                            "The team knows what the next most important piece of work is, and any developer can work on it": false,
-                            "Team members are able to help move cards through any column when needed": false,
-                            "There is a single backlog of work": false,
-                            "Is the work in progress limited by the teams size": false
-                        },
-                        "Product Ownership": {
-                            "A single product owner is identified and able to make product decisions": false,
-                            "The product owner is actively involved in the development process and attends relevant ceremonies": false,
-                            "The product owner understands the business value of features being built": false,
-                            "The product owner is able and willing to prioritise work according to business value and delivery risk": false,
-                            "The product owner is part of the team": false
-                        }
-                    }
-                }
-            };
-
-            var palette = new Rickshaw.Color.Palette( { scheme: 'classic9' } );
-            var time = new Rickshaw.Fixtures.Time();
-
-            var renderCharts = function() {
-                var progressFor = function(c, o) {
-                    var dates = _.sortBy(_.keys(o), _.identity);
-
-                    return _.map(dates, function(d) {
-                        var values = _.map(_.keys(o[d]["behaviours"][c]), function(k) {
-                            return o[d]["behaviours"][c][k];
+                        var g = new Rickshaw.Graph({
+                            element: document.querySelector("#" + selector + "-overall"),
+                            min: 0,
+                            max: 30,
+                            interpolation: "step",
+                            series: _.map(categories, function(c, i) {
+                                return {
+                                    name: c,
+                                    color: palette.color(i + paletteOffset),
+                                    data: progressFor(c, d)
+                                }
+                            })
                         });
 
-                        return {"x": new Date(d).getTime()/1000, "y": _.filter(values, _.identity).length};
-                    });
-                }
+                        new Rickshaw.Graph.Axis.Y({
+                            graph: g,
+                            orientation: 'left',
+                            tickFormat: Rickshaw.Fixtures.Number.formatKMBT,
+                            element: document.getElementById(selector + '-y-axis')
+                        });
 
-                var progressChartFor = function(selector, d, categories, paletteOffset) {
-                    paletteOffset = paletteOffset || 0;
+                        new Rickshaw.Graph.Axis.Time({
+                            graph: g
+                        });
 
-                    var g = new Rickshaw.Graph({
-                        element: document.querySelector("#" + selector + "-overall"),
-                        min: 0,
-                        max: 30,
-                        interpolation: "step",
-                        series: _.map(categories, function(c, i) {
-                            return {
-                                name: c,
-                                color: palette.color(i + paletteOffset),
-                                data: progressFor(c, d)
+                        new Rickshaw.Graph.HoverDetail( {
+                            graph: g,
+                            formatter: function(series, x, y, formattedX, formattedY, point) {
+                                var date = new Date(x * 1000);
+                                var key = date.toISOString().slice(0, 10);
+                                var category = d[key]["behaviours"][point.name];
+
+                                var items = _.reduce(category, function(m, v, k) {
+                                    if (v) {
+                                        return m + '<li class="check"><i class="fa fa-li fa-check-square-o"></i>' + k + '</li>';
+                                    } else {
+                                        return m + '<li class="uncheck"><i class="fa fa-li fa-square-o"></i>' + k + '</li>';
+                                    }
+                                }, "");
+
+                                return '<h4>' + point.name + '</h4><ul class="hover-checklist fa-ul">' + items + '</ul>';
                             }
+                        } );
+
+                        g.render();
+
+                        return g;
+                    }
+
+                    var charts = [];
+
+                    var techCategories = [
+                        "Automated Testing",
+                        'Continuous Integration',
+                        'Deployment',
+                        'Practices'
+                    ];
+
+                    var agileCategories = [
+                        "Analysis",
+                        "Culture",
+                        "Ceremonies",
+                        "Process",
+                        "Product Ownership"
+                    ];
+
+                    charts.push(progressChartFor('disrupts', disrupts, techCategories));
+                    charts.push(progressChartFor('disrupts-agile', disruptsAgile, agileCategories, 4));
+                    charts.push(progressChartFor("loyalty", loyalty, techCategories));
+                    charts.push(progressChartFor('loyalty-agile', loyaltyAgile, agileCategories, 4));
+                    charts.push(progressChartFor("mobile", mobile, techCategories));
+                    charts.push(progressChartFor('mobile-agile', mobileAgile, agileCategories, 4));
+
+                    return charts;
+                };
+
+                $(document).ready(function () {
+                    var charts = renderCharts();
+
+                    $(window).resize(function() {
+                        _.map(charts, function(c) {
+                            c.configure({width: $(c.element).innerWidth()})
+                            c.render();
+                        });
+                    });
+
+                    var sum = function(a) {
+                        return _.reduce(a, function(m, i) { return m + i; }, 0);
+                    };
+
+                    var scoreFor = function(d, o) {
+                        return sum(
+                            _.map(_.keys(o[d]["behaviours"]), function(c) {
+                                return sum(
+                                    _.map(o[d]["behaviours"][c], function(i) {
+                                        return i ? 1 : 0;
+                                    })
+                                );
+                            })
+                        );
+                    }
+
+                    var recentScore = function(o) {
+                        var dates = _.sortBy(_.keys(o), _.identity);
+                        var latest = dates[dates.length-1];
+
+                        return scoreFor(latest, o);
+                    };
+
+                    var delta = function(o) {
+                        var dates = _.sortBy(_.keys(o), _.identity);
+                        var latest = dates[dates.length-1];
+                        var prev = dates[dates.length-2];
+
+                        return scoreFor(latest, o) - scoreFor(prev, o);
+                    }
+
+                    $("#loyalty-tech-total").text(recentScore(loyalty));
+                    $("#loyalty-agile-total").text(recentScore(loyaltyAgile));
+
+                    $("#disrupts-tech-total").text(recentScore(disrupts));
+                    $("#disrupts-agile-total").text(recentScore(disruptsAgile));
+
+                    $("#mobile-tech-total").text(recentScore(mobile));
+                    $("#mobile-agile-total").text(recentScore(mobileAgile));
+
+                    var allCategories = _.keys(disrupts[_.keys(disrupts)[0]]["behaviours"]);
+                    allCategories = allCategories.concat(_.keys(loyaltyAgile[_.keys(loyaltyAgile)[0]]["behaviours"]));
+                    var item = d3.select("#legend")
+                                .selectAll("div")
+                                .data(allCategories)
+                                .enter()
+                                .append("div");
+                    item
+                        .append("div")
+                        .attr("style", function(d, i) {
+                            return "background-color: " + palette.color(i);
                         })
-                    });
+                        .attr("class", function(d, i) {
+                            return "item p" + i;
+                        });
 
-                    new Rickshaw.Graph.Axis.Y({
-                        graph: g,
-                        orientation: 'left',
-                        tickFormat: Rickshaw.Fixtures.Number.formatKMBT,
-                        element: document.getElementById(selector + '-y-axis')
-                    });
+                    item.append("span")
+                        .text(function(d) { return d; });
 
-                    new Rickshaw.Graph.Axis.Time({
-                        graph: g
-                    });
+                    var drawDelta = function(selector, team) {
+                        d3.select(selector)
+                            .selectAll("span")
+                            .data([delta(team)])
+                            .enter()
+                            .append("span")
+                                .attr("class", "delta")
+                                .text(function(d) { return "" + d; })
+                            .append("i")
+                                .attr("class", function(d) {
+                                    if (d > 0) {
+                                        return 'fa fa-arrow-up change-i up';
+                                    } else if (d < 0) {
+                                        return 'fa fa-arrow-down change-i down';
+                                    } else {
+                                        return "fa fa-exchange change-i eq";
+                                    }
+                                });
+                    };
 
-                    new Rickshaw.Graph.HoverDetail( {
-                        graph: g,
-                        formatter: function(series, x, y, formattedX, formattedY, point) {
-                            var date = new Date(x * 1000);
-                            var key = date.toISOString().slice(0, 10);
-                            var category = d[key]["behaviours"][point.name];
+                    drawDelta("#disrupts-delta", disrupts);
+                    drawDelta("#disrupts-agile-delta", disruptsAgile);
 
-                            var items = _.reduce(category, function(m, v, k) {
-                                if (v) {
-                                    return m + '<li class="check"><i class="fa fa-li fa-check-square-o"></i>' + k + '</li>';
-                                } else {
-                                    return m + '<li class="uncheck"><i class="fa fa-li fa-square-o"></i>' + k + '</li>';
-                                }
-                            }, "");
+                    drawDelta("#loyalty-delta", loyalty);
+                    drawDelta("#loyalty-agile-delta", loyaltyAgile);
 
-                            return '<h4>' + point.name + '</h4><ul class="hover-checklist fa-ul">' + items + '</ul>';
-                        }
-                    } );
+                    drawDelta("#mobile-delta", mobile);
+                    drawDelta("#mobile-agile-delta", mobileAgile);
 
-                    g.render();
+                    var drawFocus = function(selector, team) {
+                        var dates = _.sortBy(_.keys(team), _.identity);
+                        var latest = dates[dates.length-1];
 
-                    return g;
-                }
+                        var li = d3.select(selector)
+                                    .append("ul")
+                                        .attr("class", "fa-ul focus-list")
+                                        .selectAll("ul")
+                                        .data(team[latest]["focus"])
+                                        .enter()
+                                        .append("li");
+                        li.append("i")
+                            .attr("class", "fa fa-li fa-check-square-o");
 
-                var charts = [];
+                        li.append("span")
+                            .text(function(d) { return d; });
+                    }
 
-                var techCategories = [
-                    "Automated Testing",
-                    'Continuous Integration',
-                    'Deployment',
-                    'Practices'
-                ];
+                    drawFocus("#disrupts-focus", disrupts);
+                    drawFocus("#disrupts-agile-focus", disruptsAgile);
 
-                var agileCategories = [
-                    "Analysis",
-                    "Culture",
-                    "Ceremonies",
-                    "Process",
-                    "Product Ownership"
-                ];
+                    drawFocus("#loyalty-focus", loyalty);
+                    drawFocus("#loyalty-agile-focus", loyaltyAgile);
 
-                charts.push(progressChartFor('disrupts', disrupts, techCategories));
-                charts.push(progressChartFor('disrupts-agile', disruptsAgile, agileCategories, 4));
-                charts.push(progressChartFor("loyalty", loyalty, techCategories));
-                charts.push(progressChartFor('loyalty-agile', loyaltyAgile, agileCategories, 4));
-                charts.push(progressChartFor("mobile", mobile, techCategories));
-                charts.push(progressChartFor('mobile-agile', mobileAgile, agileCategories, 4));
-
-                return charts;
+                    drawFocus("#mobile-focus", mobile);
+                    drawFocus("#mobile-agile-focus", mobileAgile);
+                });
             };
 
-            $(document).ready(function () {
-                var charts = renderCharts();
+            var disrupts = {};
+            var disruptsAgile = {};
+            var loyalty = {};
+            var loyaltyAgile = {};
+            var mobile = {};
+            var mobileAgile = {};
 
-                $(window).resize(function() {
-                    _.map(charts, function(c) {
-                        c.configure({width: $(c.element).innerWidth()})
-                        c.render();
+            d3.json("tech-disrupts.json", function(d) {
+                disrupts = d;
+                d3.json("agile-disrupts.json", function(d) {
+                    disruptsAgile = d;
+                    d3.json("tech-loyalty.json", function(d) {
+                        loyalty = d;
+                        d3.json("agile-loyalty.json", function(d) {
+                            loyaltyAgile = d;
+                            d3.json("tech-mobile.json", function(d) {
+                                mobile = d;
+                                d3.json("agile-mobile.json", function(d) {
+                                    mobileAgile = d;
+                                    ready(disrupts,
+                                          disruptsAgile,
+                                          loyalty,
+                                          loyaltyAgile,
+                                          mobile,
+                                          mobileAgile);
+                                });
+                            });
+                        });
                     });
                 });
-
-                var sum = function(a) {
-                    return _.reduce(a, function(m, i) { return m + i; }, 0);
-                };
-
-                var scoreFor = function(d, o) {
-                    return sum(
-                        _.map(_.keys(o[d]["behaviours"]), function(c) {
-                            return sum(
-                                _.map(o[d]["behaviours"][c], function(i) {
-                                    return i ? 1 : 0;
-                                })
-                            );
-                        })
-                    );
-                }
-
-                var recentScore = function(o) {
-                    var dates = _.sortBy(_.keys(o), _.identity);
-                    var latest = dates[dates.length-1];
-
-                    return scoreFor(latest, o);
-                };
-
-                var delta = function(o) {
-                    var dates = _.sortBy(_.keys(o), _.identity);
-                    var latest = dates[dates.length-1];
-                    var prev = dates[dates.length-2];
-
-                    return scoreFor(latest, o) - scoreFor(prev, o);
-                }
-
-                $("#loyalty-tech-total").text(recentScore(loyalty));
-                $("#loyalty-agile-total").text(recentScore(loyaltyAgile));
-
-                $("#disrupts-tech-total").text(recentScore(disrupts));
-                $("#disrupts-agile-total").text(recentScore(disruptsAgile));
-
-                $("#mobile-tech-total").text(recentScore(mobile));
-                $("#mobile-agile-total").text(recentScore(mobileAgile));
-
-                var allCategories = _.keys(disrupts[_.keys(disrupts)[0]]["behaviours"]);
-                allCategories = allCategories.concat(_.keys(loyaltyAgile[_.keys(loyaltyAgile)[0]]["behaviours"]));
-                var item = d3.select("#legend")
-                            .selectAll("div")
-                            .data(allCategories)
-                            .enter()
-                            .append("div");
-                item
-                    .append("div")
-                    .attr("style", function(d, i) {
-                        return "background-color: " + palette.color(i);
-                    })
-                    .attr("class", function(d, i) {
-                        return "item p" + i;
-                    });
-
-                item.append("span")
-                    .text(function(d) { return d; });
-
-                var drawDelta = function(selector, team) {
-                    d3.select(selector)
-                        .selectAll("span")
-                        .data([delta(team)])
-                        .enter()
-                        .append("span")
-                            .attr("class", "delta")
-                            .text(function(d) { return "" + d; })
-                        .append("i")
-                            .attr("class", function(d) {
-                                if (d > 0) {
-                                    return 'fa fa-arrow-up change-i up';
-                                } else if (d < 0) {
-                                    return 'fa fa-arrow-down change-i down';
-                                } else {
-                                    return "fa fa-exchange change-i eq";
-                                }
-                            });
-                };
-
-                drawDelta("#disrupts-delta", disrupts);
-                drawDelta("#disrupts-agile-delta", disruptsAgile);
-
-                drawDelta("#loyalty-delta", loyalty);
-                drawDelta("#loyalty-agile-delta", loyaltyAgile);
-
-                drawDelta("#mobile-delta", mobile);
-                drawDelta("#mobile-agile-delta", mobileAgile);
-
-                var drawFocus = function(selector, team) {
-                    var dates = _.sortBy(_.keys(team), _.identity);
-                    var latest = dates[dates.length-1];
-
-                    var li = d3.select(selector)
-                                .append("ul")
-                                    .attr("class", "fa-ul focus-list")
-                                    .selectAll("ul")
-                                    .data(team[latest]["focus"])
-                                    .enter()
-                                    .append("li");
-                    li.append("i")
-                        .attr("class", "fa fa-li fa-check-square-o");
-
-                    li.append("span")
-                        .text(function(d) { return d; });
-                }
-
-                drawFocus("#disrupts-focus", disrupts);
-                drawFocus("#disrupts-agile-focus", disruptsAgile);
-
-                drawFocus("#loyalty-focus", loyalty);
-                drawFocus("#loyalty-agile-focus", loyaltyAgile);
-
-                drawFocus("#mobile-focus", mobile);
-                drawFocus("#mobile-agile-focus", mobileAgile);
             });
         </script>
     </head>
