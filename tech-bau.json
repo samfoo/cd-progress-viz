@@ -1,0 +1,140 @@
+{
+    "2015-09-01": {
+        "focus": [
+            "Testers and developers collaborate on writing tests",
+            "Developers run tests before pushing and only push when code passes tests",
+            "Code is collectively owned, any developer can work on any story",
+            "Pair programming used for rapid feedback and is the default way of working in the team"
+        ],
+        "behaviours": {
+            "Automated Testing": {
+                "A useful level of code coverage is maintained by the team": true,
+                "All new code has automated tests": true,
+                "Single command to run unit tests": false,
+                "Single command to run acceptance tests": false,
+                "Testers and developers collaborate on writing tests": false,
+                "Tests setup their own test data": true,
+                "Tests complete in less than 10 minutes": false,
+                "Unit tests are written first": false
+            },
+            "Continuous Integration": {
+                "Build scripts are alongside code in a single repository": false,
+                "Developers run tests before pushing and only push when code passes tests": false,
+                "Broken builds are fixed or reverted immediately, and no checkins are made on top of them": false,
+                "Binaries created once for use in all environments": true,
+                "Data migrations and scripts versioned along with the application source code": true
+            },
+            "Deployment": {
+                "Deployment scripts alongside code in a single repository": false,
+                "All release steps tested in a production mirror": true,
+                "Automated deployment to production": false,
+                "Automated smoke tests run during deployment into production": false,
+                "Production can be deployed to without downtime": false,
+                "Problems in production are detectable and visible to the whole team and prioritised like any other work": false,
+                "The health of production systems is easily determinable and visible": true
+            },
+            "Practices": {
+                "Coding standards are agreed upon and followed": true,
+                "Check-ins happen at least once a day": false,
+                "All code is peer reviewed": true,
+                "Changes can be easily reverted": true,
+                "Team practices trunk-based development as a general rule, and knows when it is appropriate to branch": false,
+                "Test results radiated and visible to the whole team": false,
+                "Code is collectively owned, any developer can work on any story": false,
+                "Pair programming used for rapid feedback and is the default way of working in the team": false,
+                "Development and test environment are as similar to production as is economically feasible": true,
+                "Team owns their production system and configuration": false
+            }
+        }
+    },
+    "2015-08-01": {
+        "focus": [
+            "Deployment scripts alongside code in a single repository",
+            "Production can be deployed to without downtime"
+        ],
+        "behaviours": {
+            "Automated Testing": {
+                "A useful level of code coverage is maintained by the team": false,
+                "All new code has automated tests": false,
+                "Single command to run unit tests": false,
+                "Single command to run acceptance tests": false,
+                "Testers and developers collaborate on writing tests": false,
+                "Tests setup their own test data": false,
+                "Tests complete in less than 10 minutes": false,
+                "Unit tests are written first": false
+            },
+            "Continuous Integration": {
+                "Build scripts are alongside code in a single repository": false,
+                "Developers run tests before pushing and only push when code passes tests": false,
+                "Broken builds are fixed or reverted immediately, and no checkins are made on top of them": false,
+                "Binaries created once for use in all environments": false,
+                "Data migrations and scripts versioned along with the application source code": false
+            },
+            "Deployment": {
+                "Deployment scripts alongside code in a single repository": false,
+                "All release steps tested in a production mirror": false,
+                "Automated deployment to production": false,
+                "Automated smoke tests run during deployment into production": false,
+                "Production can be deployed to without downtime": false,
+                "Problems in production are detectable and visible to the whole team and prioritised like any other work": false,
+                "The health of production systems is easily determinable and visible": false
+            },
+            "Practices": {
+                "Coding standards are agreed upon and followed": false,
+                "Check-ins happen at least once a day": false,
+                "All code is peer reviewed": false,
+                "Changes can be easily reverted": false,
+                "Team practices trunk-based development as a general rule, and knows when it is appropriate to branch": false,
+                "Test results radiated and visible to the whole team": false,
+                "Code is collectively owned, any developer can work on any story": false,
+                "Pair programming used for rapid feedback and is the default way of working in the team": false,
+                "Development and test environment are as similar to production as is economically feasible": false,
+                "Team owns their production system and configuration": false
+            }
+        }
+    },
+    "2015-07-01": {
+        "focus": [],
+        "behaviours": {
+            "Automated Testing": {
+                "A useful level of code coverage is maintained by the team": false,
+                "All new code has automated tests": false,
+                "Single command to run unit tests": false,
+                "Single command to run acceptance tests": false,
+                "Testers and developers collaborate on writing tests": false,
+                "Tests setup their own test data": false,
+                "Tests complete in less than 10 minutes": false,
+                "Unit tests are written first": false
+            },
+            "Continuous Integration": {
+                "Build scripts are alongside code in a single repository": false,
+                "Developers run tests before pushing and only push when code passes tests": false,
+                "Broken builds are fixed or reverted immediately, and no checkins are made on top of them": false,
+                "Binaries created once for use in all environments": false,
+                "Data migrations and scripts versioned along with the application source code": false
+            },
+            "Deployment": {
+                "Deployment scripts alongside code in a single repository": false,
+                "All release steps tested in a production mirror": false,
+                "Automated deployment to production": false,
+                "Automated smoke tests run during deployment into production": false,
+                "Production can be deployed to without downtime": false,
+                "Problems in production are detectable and visible to the whole team and prioritised like any other work": false,
+                "The health of production systems is easily determinable and visible": false
+            },
+            "Practices": {
+                "Coding standards are agreed upon and followed": false,
+                "Check-ins happen at least once a day": false,
+                "All code is peer reviewed": false,
+                "Changes can be easily reverted": false,
+                "Team practices trunk-based development as a general rule, and knows when it is appropriate to branch": false,
+                "Test results radiated and visible to the whole team": false,
+                "Code is collectively owned, any developer can work on any story": false,
+                "Pair programming used for rapid feedback and is the default way of working in the team": false,
+                "Development and test environment are as similar to production as is economically feasible": false,
+                "Team owns their production system and configuration": false
+            }
+        }
+    }
+}
+

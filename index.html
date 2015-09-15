@@ -271,7 +271,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
         <script>
-            var ready = function(disrupts, disruptsAgile, loyalty, loyaltyAgile, mobile, mobileAgile) {
+            var ready = function(disrupts, disruptsAgile, loyalty, loyaltyAgile, mobile, mobileAgile, bau, bauAgile) {
                 var palette = new Rickshaw.Color.Palette( { scheme: 'classic9' } );
                 var time = new Rickshaw.Fixtures.Time();
 
@@ -363,6 +363,8 @@
                     charts.push(progressChartFor('loyalty-agile', loyaltyAgile, agileCategories, 4));
                     charts.push(progressChartFor("mobile", mobile, techCategories));
                     charts.push(progressChartFor('mobile-agile', mobileAgile, agileCategories, 4));
+                    charts.push(progressChartFor("bau", bau, techCategories));
+                    charts.push(progressChartFor('bau-agile', bauAgile, agileCategories, 4));
 
                     return charts;
                 };
@@ -417,6 +419,9 @@
                     $("#mobile-tech-total").text(recentScore(mobile));
                     $("#mobile-agile-total").text(recentScore(mobileAgile));
 
+                    $("#bau-tech-total").text(recentScore(bau));
+                    $("#bau-agile-total").text(recentScore(bauAgile));
+
                     var allCategories = _.keys(disrupts[_.keys(disrupts)[0]]["behaviours"]);
                     allCategories = allCategories.concat(_.keys(loyaltyAgile[_.keys(loyaltyAgile)[0]]["behaviours"]));
                     var item = d3.select("#legend")
@@ -465,6 +470,9 @@
                     drawDelta("#mobile-delta", mobile);
                     drawDelta("#mobile-agile-delta", mobileAgile);
 
+                    drawDelta("#bau-delta", bau);
+                    drawDelta("#bau-agile-delta", bauAgile);
+
                     var drawFocus = function(selector, team) {
                         var dates = _.sortBy(_.keys(team), _.identity);
                         var latest = dates[dates.length-1];
@@ -491,6 +499,9 @@
 
                     drawFocus("#mobile-focus", mobile);
                     drawFocus("#mobile-agile-focus", mobileAgile);
+
+                    drawFocus("#bau-focus", bau);
+                    drawFocus("#bau-agile-focus", bauAgile);
                 });
             };
 
@@ -500,6 +511,8 @@
             var loyaltyAgile = {};
             var mobile = {};
             var mobileAgile = {};
+            var bau = {};
+            var bauAgile = {};
 
             d3.json("tech-disrupts.json", function(d) {
                 disrupts = d;
@@ -513,12 +526,21 @@
                                 mobile = d;
                                 d3.json("agile-mobile.json", function(d) {
                                     mobileAgile = d;
-                                    ready(disrupts,
-                                          disruptsAgile,
-                                          loyalty,
-                                          loyaltyAgile,
-                                          mobile,
-                                          mobileAgile);
+                                    d3.json("tech-bau.json", function(d) {
+                                        bau = d;
+                                        d3.json("agile-bau.json", function(d) {
+                                            bauAgile = d;
+
+                                            ready(disrupts,
+                                                  disruptsAgile,
+                                                  loyalty,
+                                                  loyaltyAgile,
+                                                  mobile,
+                                                  mobileAgile,
+                                                  bau,
+                                                  bauAgile);
+                                        });
+                                    });
                                 });
                             });
                         });
@@ -668,6 +690,50 @@
             </div>
         </div>
 
+        <h2>online BAU</h2>
+        <div class="info">
+            <div class="summary">
+                <div class="score">
+                    <div>
+                        <div id="bau-total" class="total x2">
+                            <span id="bau-tech-total"></span>
+                            &nbsp;|&nbsp;
+                            <span id="bau-agile-total"></span>
+                        </div>
+                        <div class="deltas">
+                            <div id="bau-delta" class="delta"></div>
+                            <div id="bau-agile-delta" class="delta"></div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+
+                <div class="focus-group">
+                    <div id="bau-focus" class="focus">
+                        <h3>Current tech focus areas</h3>
+                    </div>
+
+                    <div id="bau-agile-focus" class="focus">
+                        <h3>Current project management focus areas</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="side-by-side-charts">
+                <div class="chart-container">
+                    <div id="bau-y-axis" class="cd-checklist-chart-y-axis"></div>
+                    <div id="bau-overall" class="cd-checklist-chart"></div>
+                    <h3>technical</h3>
+                </div>
+
+                <div class="chart-container">
+                    <div id="bau-agile-y-axis" class="cd-checklist-chart-y-axis"></div>
+                    <div id="bau-agile-overall" class="cd-checklist-chart"></div>
+                    <h3>project management</h3>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
         <div id="legend">
             <h3>Legend</h3>
         </div>
