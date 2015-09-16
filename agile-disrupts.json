@@ -1,4 +1,49 @@
 {
+    "2015-09-01": {
+        "focus": [
+        ],
+        "behaviours": {
+            "Analysis": {
+                "User Stories are written with customer and business value in mind": true,
+                "User Stories are written using INVEST": true,
+                "First high level user stories are identified and then further split into story cards": true,
+                "QA’s and BA’s work together on writing acceptance criteria": true,
+                "All stories have acceptance criteria": true,
+                "Customer value is measured in some way": false,
+                "An inception is run for all major pieces of work": false
+            },
+            "Culture": {
+                "The team culture is experimental and willing to try new things": true,
+                "The team is continually striving to improve themselves and their processes": true,
+                "The team includes all members needed to complete any work": false,
+                "There is a common understanding of the business problem": true,
+                "Risks are identified and made visible as early as possible": false,
+                "Team members collaborate to share knowledge": true,
+                "Team members are able to challenge the status-quo safely": true
+            },
+            "Ceremonies": {
+                "The team has daily stand-ups": true,
+                "All stories are shoulder checked by a BA, a QA, and the developer before moving to test": false,
+                "The team regularly reflects on their performance with retrospectives": true,
+                "The team regularly involves business stakeholders in incremental development by hosting showcases.": true
+            },
+            "Process": {
+                "All team members are physically located in the same area": true,
+                "The current backlog of work is visible on a physical wall": true,
+                "The team knows what the next most important piece of work is, and any developer can work on it": true,
+                "Team members are able to help move cards through any column when needed": false,
+                "There is a single backlog of work": true,
+                "Is the work in progress limited by the teams size": true
+            },
+            "Product Ownership": {
+                "A single product owner is identified and able to make product decisions": false,
+                "The product owner is actively involved in the development process and attends relevant ceremonies": false,
+                "The product owner understands the business value of features being built": false,
+                "The product owner is able and willing to prioritise work according to business value and delivery risk": true,
+                "The product owner is part of the team": false
+            }
+        }
+    },
     "2015-08-01": {
         "focus": [
             "The team is continually striving to improve themselves and their processes",
